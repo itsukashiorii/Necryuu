@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papan Gambar Stylish</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-gradient: linear-gradient(135deg, #7f00ff 0%, #ffcc00 100%);
+      --bg-color: #1a0a2e;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --text-color: #f5f5f5;
+      --accent: #ffcc00;
+      --highlight: #9b59b6;
+      --upload-color: #2ecc71;
+      --glass-effect: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background animasi */
+    .bg-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-bubbles li {
+      position: absolute;
+      list-style: none;
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.05);
+      bottom: -160px;
+      animation: square 25s infinite;
+      transition-timing-function: linear;
+      border-radius: 10px;
+    }
+
+    .bg-bubbles li:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 17s;
+    }
+
+    .bg-bubbles li:nth-child(2) {
+      left: 20%;
+      width: 80px;
+      height: 80px;
+      animation-delay: 2s;
+      animation-duration: 22s;
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .bg-bubbles li:nth-child(3) {
+      left: 25%;
+      animation-delay: 4s;
+    }
+
+    .bg-bubbles li:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-duration: 28s;
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .bg-bubbles li:nth-child(5) {
+      left: 70%;
+    }
+
+    .bg-bubbles li:nth-child(6) {
+      left: 80%;
+      width: 120px;
+      height: 120px;
+      animation-delay: 3s;
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .bg-bubbles li:nth-child(7) {
+      left: 32%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 7s;
+    }
+
+    .bg-bubbles li:nth-child(8) {
+      left: 55%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 15s;
+      animation-duration: 40s;
+    }
+
+    .bg-bubbles li:nth-child(9) {
+      left: 25%;
+      width: 10px;
+      height: 10px;
+      animation-delay: 2s;
+      animation-duration: 40s;
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .bg-bubbles li:nth-child(10) {
+      left: 90%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 11s;
+    }
+
+    @keyframes square {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    header {
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 2rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      background: var(--glass-effect);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      background: var(--main-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1rem;
+    }
+
+    .status-bar, .history-log {
+      margin: 1rem 0;
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 1000px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .status-bar:hover, .history-log:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-bar span {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .controls {
+      margin: 1.5rem 0 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+    }
+
+    .controls button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--highlight) 0%, #7f00ff 100%);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .controls button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .controls button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(155, 89, 182, 0.5);
+    }
+
+    .controls button:hover::before {
+      left: 100%;
+    }
+
+    .controls button i {
+      font-size: 1.2rem;
+    }
+
+    .papan-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      padding-bottom: 4rem;
+    }
+
+    .papan {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .papan:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .papan-content {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem;
+      align-content: flex-start;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--highlight) transparent;
+    }
+
+    .papan-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .papan-content::-webkit-scrollbar-thumb {
+      background-color: var(--highlight);
+      border-radius: 3px;
+    }
+
+    .papan img {
+      width: calc(50% - 0.25rem);
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .papan img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
+    }
+
+    .time-server, .time-custom {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+      font-family: 'Courier New', monospace;
+    }
+
+    .history-toggle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #7f00ff, #ffcc00);
+      color: white;
+      padding: 0.8rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .history-toggle button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      backdrop-filter: blur(5px);
+    }
+
+    .history-toggle button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .upload-section {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+
+    .upload-btn {
+      background: var(--upload-color);
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.8rem;
+      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .upload-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 10px 30px rgba(46, 204, 113, 0.6);
+    }
+
+    .upload-btn i {
+      font-size: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .upload-btn:hover i {
+      transform: scale(1.1);
+    }
+
+    .upload-tooltip {
+      position: absolute;
+      right: 80px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .upload-btn:hover .upload-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .board-upload-container {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.8rem;
+      z-index: 2;
+    }
+
+    .board-upload-btn {
+      background: var(--upload-color);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .board-upload-btn:hover {
+      transform: scale(1.15) rotate(15deg);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .empty-board {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1.2rem;
+      height: 100%;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .empty-board i {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Style untuk history log */
+    .history-log {
+      max-height: 300px;
+      overflow-y: auto;
+      transition: all 0.5s ease;
+    }
+    
+    .history-log h3 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .history-log h3 i {
+      font-size: 1.2rem;
+    }
+    
+    .history-log ul {
+      list-style-type: none;
+    }
+    
+    .history-log li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .history-log li:hover {
+      background: rgba(255, 255, 255, 0.03);
+      transform: translateX(5px);
+    }
+    
+    .history-log li:last-child {
+      border-bottom: none;
+    }
+    
+    .history-time {
+      color: var(--accent);
+      font-size: 0.75rem;
+      margin-right: 1rem;
+      min-width: 90px;
+      font-family: 'Courier New', monospace;
+      opacity: 0.8;
+    }
+    
+    .history-message {
+      flex: 1;
+    }
+    
+    /* Efek sentuhan lembut */
+    .soft-touch {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .soft-touch:hover {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+    
+    /* Animasi fade in */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .papan-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .controls button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background animasi -->
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <div class="history-toggle soft-touch">
+    <i class="fas fa-history"></i> Catatan aktivitas disimpan secara otomatis
+    <button onclick="toggleHistory()" class="soft-touch">
+      <i class="fas fa-eye"></i> Toggle History
+    </button>
+  </div>
+  
+  <header class="fade-in">
+    <h1>Papan Gambar Stylish</h1>
+    <p>Pilih papan favoritmu dan unggah gambar kesukaanmu!</p>
+    <div class="time-custom" id="customTime"></div>
+  </header>
+  
+  <div class="status-bar soft-touch fade-in">
+    <span id="timer"><i class="fas fa-clock"></i> Waktu dibuka: -</span>
+    <span id="last-seen"><i class="fas fa-calendar-check"></i> Terakhir dibuka: -</span>
+    <span id="next-reset"><i class="fas fa-sync-alt"></i> History reset: -</span>
+  </div>
+  
+  <div class="history-log hidden soft-touch fade-in" id="historyLog">
+    <h3><i class="fas fa-scroll"></i> Riwayat Aktivitas</h3>
+    <ul id="historyList"></ul>
+  </div>
+  
+  <div class="controls fade-in">
+    <button onclick="showPapan(0)" class="soft-touch"><i class="fas fa-thumbtack"></i> Papan 1</button>
+    <button onclick="showPapan(1)" class="soft-touch"><i class="fas fa-thumbtack"></i> Papan 2</button>
+    <button onclick="showPapan(2)" class="soft-touch"><i class="fas fa-thumbtack"></i> Papan 3</button>
+  </div>
+  
+  <div class="papan-container">
+    <div class="papan papan-1 fade-in" id="papan1">
+      <div class="board-upload-container">
+        <button class="board-upload-btn soft-touch" onclick="uploadImage(1)">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+      <div class="papan-content" id="contentPapan1">
+        <div class="empty-board">
+          <i class="fas fa-images"></i>
+          Papan 1 - Tidak ada gambar
+          <p style="font-size:0.9rem;margin-top:1rem;">Klik tombol upload di bawah kanan untuk menambahkan gambar</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="papan papan-2 hidden fade-in" id="papan2">
+      <div class="board-upload-container">
+        <button class="board-upload-btn soft-touch" onclick="uploadImage(2)">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+      <div class="papan-content" id="contentPapan2">
+        <div class="empty-board">
+          <i class="fas fa-images"></i>
+          Papan 2 - Tidak ada gambar
+          <p style="font-size:0.9rem;margin-top:1rem;">Klik tombol upload di bawah kanan untuk menambahkan gambar</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="papan papan-3 hidden fade-in" id="papan3">
+      <div class="board-upload-container">
+        <button class="board-upload-btn soft-touch" onclick="uploadImage(3)">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+      <div class="papan-content" id="contentPapan3">
+        <div class="empty-board">
+          <i class="fas fa-images"></i>
+          Papan 3 - Tidak ada gambar
+          <p style="font-size:0.9rem;margin-top:1rem;">Klik tombol upload di bawah kanan untuk menambahkan gambar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="upload-section fade-in">
+    <button class="upload-btn soft-touch" onclick="uploadImage()">
+      <i class="fas fa-plus"></i>
+      <div class="upload-tooltip">Tambah Papan Baru</div>
+    </button>
+  </div>
+
+  <script>
+    // Variabel global
+    let currentPapan = -1;
+    let startTime = new Date();
+    let history = JSON.parse(localStorage.getItem('papanHistory')) || [];
+    let resetTimeout;
+    
+    // Inisialisasi saat halaman dimuat
+    window.onload = function() {
+      updateTime();
+      updateTimer();
+      loadHistory();
+      updateLastSeen();
+      scheduleHistoryReset();
+      
+      // Set interval untuk update waktu
+      setInterval(updateTime, 1000);
+      setInterval(updateTimer, 1000);
+      
+      // Tampilkan papan pertama secara default
+      if (currentPapan === -1) {
+        showPapan(0);
+      }
+      
+      // Tambahkan efek fade in untuk semua elemen
+      document.querySelectorAll('.fade-in').forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.1}s`;
+      });
+    };
+    
+    // Fungsi untuk menampilkan/menyembunyikan history
+    function toggleHistory() {
+      const historyLog = document.getElementById('historyLog');
+      historyLog.classList.toggle('hidden');
+      
+      // Tambahkan efek animasi
+      if (!historyLog.classList.contains('hidden')) {
+        historyLog.style.animation = 'fadeIn 0.5s ease forwards';
+      }
+    }
+    
+    // Fungsi untuk memuat history dari localStorage
+    function loadHistory() {
+      const historyList = document.getElementById('historyList');
+      historyList.innerHTML = '';
+      
+      if (history.length === 0) {
+        const li = document.createElement('li');
+        li.innerHTML = '<div style="width:100%;text-align:center;padding:1rem;color:rgba(255,255,255,0.5)">Tidak ada riwayat aktivitas</div>';
+        historyList.appendChild(li);
+        return;
+      }
+      
+      history.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'soft-touch';
+        li.innerHTML = `
+          <span class="history-time">[${item.time}]</span>
+          <span class="history-message">${item.action}</span>
+        `;
+        historyList.appendChild(li);
+      });
+    }
+    
+    // Fungsi untuk menambahkan history
+    function addHistory(action) {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      const dateStr = now.toLocaleDateString();
+      
+      const historyItem = {
+        time: `${dateStr} ${timeStr}`,
+        action: action
+      };
+      
+      history.unshift(historyItem);
+      if (history.length > 50) history.pop(); // Batasi history
+      
+      localStorage.setItem('papanHistory', JSON.stringify(history));
+      loadHistory();
+    }
+    
+    // Fungsi untuk mereset history setiap tengah malam
+    function scheduleHistoryReset() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      
+      const timeUntilMidnight = midnight - now;
+      
+      // Update tampilan waktu reset
+      document.getElementById('next-reset').innerHTML = 
+        `<i class="fas fa-sync-alt"></i> History reset: ${midnight.toLocaleTimeString()}`;
+      
+      // Set timeout untuk reset history
+      resetTimeout = setTimeout(() => {
+        resetHistory();
+        // Jadwalkan reset berikutnya
+        scheduleHistoryReset();
+      }, timeUntilMidnight);
+    }
+    
+    // Fungsi untuk mereset history
+    function resetHistory() {
+      history = [];
+      localStorage.removeItem('papanHistory');
+      loadHistory();
+      addHistory("History telah direset secara otomatis");
+      
+      // Beri notifikasi kepada pengguna
+      showNotification("History telah direset untuk hari baru!");
+    }
+    
+
+    // Fungsi untuk menampilkan notifikasi
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.position = 'fixed';
+      notification.style.bottom = '20px';
+      notification.style.left = '50%';
+      notification.style.transform = 'translateX(-50%)';
+      notification.style.backgroundColor = 'rgba(0,0,0,0.8)';
+      notification.style.color = 'white';
+      notification.style.padding = '15px 25px';
+      notification.style.borderRadius = '50px';
+      notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+      notification.style.zIndex = '10000';
+      notification.style.animation = 'fadeIn 0.3s ease forwards';
+      notification.style.display = 'flex';
+      notification.style.alignItems = 'center';
+      notification.style.gap = '10px';
+      notification.innerHTML = `<i class="fas fa-bell" style="color:var(--accent)"></i> ${message}`;
+      
+      document.body.appendChild(notification);
+      
+      // Hapus notifikasi setelah 5 detik
+      setTimeout(() => {
+        notification.style.animation = 'fadeIn 0.3s ease reverse forwards';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 5000);
+    }
+    
+    // Fungsi untuk menampilkan papan berdasarkan indeks
+    function showPapan(papanIndex) {
+      if (currentPapan !== -1) {
+        // Sembunyikan papan yang sedang tampil
+        document.getElementById('papan' + (currentPapan + 1)).classList.add('hidden');
+      }
+      
+      // Tampilkan papan baru
+      document.getElementById('papan' + (papanIndex + 1)).classList.remove('hidden');
+      currentPapan = papanIndex;
+      
+      // Tambahkan ke history
+      addHistory(`Membuka Papan ${papanIndex + 1}`);
+    }
+    
+    // Fungsi untuk mengunggah gambar ke papan tertentu
+    function uploadImage(papanIndex) {
+      if (!papanIndex) {
+        // Jika tidak ada papanIndex, berarti tombol tambah papan
+        addHistory("Mencoba menambahkan papan baru");
+        showNotification("Fitur menambahkan papan baru akan segera hadir!");
+        return;
+      }
+      
+      const papanContent = document.getElementById('contentPapan' + papanIndex);
+      const inputFile = document.createElement('input');
+      inputFile.type = 'file';
+      inputFile.accept = 'image/*';
+      inputFile.multiple = true; // Izinkan multiple upload
+      
+      inputFile.onchange = function() {
+        const files = inputFile.files;
+        if (files.length > 0) {
+          // Hapus pesan "Tidak ada gambar" jika ada
+          const emptyBoard = papanContent.querySelector('.empty-board');
+          if (emptyBoard) {
+            papanContent.removeChild(emptyBoard);
+          }
+          
+          // Tambahkan semua gambar yang dipilih
+          Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imgContainer = document.createElement('div');
+              imgContainer.style.position = 'relative';
+              imgContainer.style.width = 'calc(50% - 0.25rem)';
+              
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.style.width = '100%';
+              img.style.height = '160px';
+              img.style.objectFit = 'cover';
+              img.style.borderRadius = '10px';
+              img.style.transition = 'all 0.3s ease';
+              img.style.cursor = 'pointer';
+              
+              // Tambahkan efek hover pada gambar
+              img.onmouseenter = () => {
+                img.style.transform = 'scale(1.03)';
+                img.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+              };
+              
+              img.onmouseleave = () => {
+                img.style.transform = 'scale(1)';
+                img.style.boxShadow = 'none';
+              };
+              
+              // Tambahkan tombol hapus
+              const deleteBtn = document.createElement('button');
+              deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+              deleteBtn.style.position = 'absolute';
+              deleteBtn.style.top = '5px';
+              deleteBtn.style.right = '5px';
+              deleteBtn.style.background = 'rgba(0,0,0,0.7)';
+              deleteBtn.style.border = 'none';
+              deleteBtn.style.borderRadius = '50%';
+              deleteBtn.style.width = '25px';
+              deleteBtn.style.height = '25px';
+              deleteBtn.style.color = 'white';
+              deleteBtn.style.cursor = 'pointer';
+              deleteBtn.style.opacity = '0';
+              deleteBtn.style.transition = 'all 0.3s ease';
+              
+              deleteBtn.onclick = (e) => {
+                e.stopPropagation();
+                papanContent.removeChild(imgContainer);
+                addHistory(`Menghapus gambar dari Papan ${papanIndex}`);
+                
+                // Jika tidak ada gambar lagi, tampilkan pesan kosong
+                if (papanContent.children.length === 0) {
+                  const emptyDiv = document.createElement('div');
+                  emptyDiv.className = 'empty-board';
+                  emptyDiv.innerHTML = `
+                    <i class="fas fa-images"></i>
+                    Papan ${papanIndex} - Tidak ada gambar
+                    <p style="font-size:0.9rem;margin-top:1rem;">Klik tombol upload di bawah kanan untuk menambahkan gambar</p>
+                  `;
+                  papanContent.appendChild(emptyDiv);
+                }
+              };
+              
+              imgContainer.appendChild(img);
+              imgContainer.appendChild(deleteBtn);
+              
+              // Tampilkan tombol hapus saat hover
+              imgContainer.onmouseenter = () => {
+                deleteBtn.style.opacity = '1';
+              };
+              
+              imgContainer.onmouseleave = () => {
+                deleteBtn.style.opacity = '0';
+              };
+              
+              papanContent.appendChild(imgContainer);
+              
+              // Tambahkan ke history
+              addHistory(`Mengunggah gambar ke Papan ${papanIndex}`);
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      };
+      inputFile.click();
+    }
+    
+    // Fungsi untuk mengupdate waktu server
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('customTime').innerHTML = 
+        `<i class="far fa-clock"></i> ${now.toLocaleString('id-ID', { 
+          weekday: 'long', 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric',
+          hour: '2-digit', 
+          minute: '2-digit', 
+          second: '2-digit' 
+        })}`;
+    }
+    
+    // Fungsi untuk mengupdate timer durasi pembukaan
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startTime;
+      
+      // Konversi ke jam, menit, detik
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('timer').innerHTML = 
+        `<i class="fas fa-clock"></i> Waktu dibuka: ${hours} jam, ${minutes} menit, ${seconds} detik`;
+    }
+    
+    // Fungsi untuk menampilkan waktu terakhir dibuka
+    function updateLastSeen() {
+      const lastOpened = localStorage.getItem('lastOpenedTime');
+      if (lastOpened) {
+        document.getElementById('last-seen').innerHTML = 
+          `<i class="fas fa-calendar-check"></i> Terakhir dibuka: ${lastOpened}`;
+      }
+    }
+    
+    // Simpan waktu terakhir papan dibuka
+    window.addEventListener('beforeunload', function() {
+      const now = new Date();
+      localStorage.setItem('lastOpenedTime', now.toLocaleString());
+      
+      const papanName = currentPapan === -1 ? 'None' : `Papan ${currentPapan + 1}`;
+      localStorage.setItem('lastOpened', papanName);
+      
+      // Bersihkan timeout saat halaman ditutup
+      if (resetTimeout) {
+        clearTimeout(resetTimeout);
+      }
+    });
+  </script>
+</body>
+</html>
